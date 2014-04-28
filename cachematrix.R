@@ -3,17 +3,17 @@
 ## Creates the 'special list' vector for the matrix, following the same pattern that makeVector
 
 makeCacheMatrix <- function(x = matrix()) {
-   m <- NULL
+   i <- NULL
    set <- function(y) {
       x <<- y
-      m <<- NULL
+      i <<- NULL
    }
    get <- function() x
-   setinverse <- function(solve) m <<- solve
-   getinverse <- function() m
+   setInverse <- function(solve) i <<- solve
+   getInverse <- function() i
    list(set = set, get = get,
-        setinverse = setinverse,
-        getinverse = getinverse)
+        setInverse = setInverse,
+        getInverse = getInverse)
 }
 
 
@@ -21,13 +21,13 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-   i <- x$getinverse()
+   i <- x$getInverse()
    if(!is.null(i)) {
       message("getting cached data")
       return(i)
    }
    data <- x$get()
    i <- solve(data, ...)
-   x$setinverse(i)
+   x$setInverse(i)
    i
 }
